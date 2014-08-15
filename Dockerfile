@@ -33,7 +33,7 @@ ADD build/setup /root
 # This script checks for existance of MySQL data directories.
 # If the directories do not exist, it runs mysql_install_db
 # The script also checks for .sql files in /root/setup/ and executes them.
-ADD etc/my_init.d/99_mysql_setup.sh /etc/my_init.d/99_mysql_setup.sh
+ADD my_init.d/99_mysql_setup.sh /etc/my_init.d/99_mysql_setup.sh
 RUN chmod +x /etc/my_init.d/99_mysql_setup.sh
 
 EXPOSE 3306
