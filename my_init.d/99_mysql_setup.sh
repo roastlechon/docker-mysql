@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 if [ ! -d /var/lib/mysql/mysql ]; then
+    touch ~/test1
     echo 'Rebuilding mysql data dir'
         
     chown -R mysql.mysql /var/lib/mysql
@@ -25,7 +26,6 @@ if [ ! -d /var/lib/mysql/mysql ]; then
         for sql in $(ls /root/setup/*.sql 2>/dev/null | sort); do
             echo 'Found script - running:' $sql
             mysql -uroot -proot -e "\. $sql"
-            mv $sql $sql.processed
         done
     else
         echo 'No setup directory with extra sql scripts to run'

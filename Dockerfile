@@ -19,6 +19,10 @@ RUN echo "mysql-server mysql-server/root_password_again password root" | debconf
 # Install mysql-server
 RUN apt-get install -y mysql-server
 
+# Remove mysql directory so that MySQL startup script can
+# handle creating and bootstrapping database
+RUN rm -rf /var/lib/mysql/*
+
 # Configure and add my.cnf
 ADD build/my.cnf /etc/mysql/my.cnf
 
@@ -27,7 +31,7 @@ ADD runit/mysql.sh /etc/service/mysql/run
 RUN chmod +x /etc/service/mysql/run
 
 # Copy over sql setup files to be run on initialization
-ADD build/setup /root
+ADD build/setup /root/setup
 
 # Add MySQL startup script
 # This script checks for existance of MySQL data directories.
