@@ -20,10 +20,10 @@ if [ ! -d /var/lib/mysql/mysql ]; then
     echo 'Setting root password to root'
     /usr/bin/mysqladmin -u root password 'root'
 
-    if [ -d /var/lib/mysql/setup ]; then
-        echo 'Found /var/lib/mysql/setup - scanning for SQL scripts'
-        for sql in $(ls /var/lib/mysql/setup/*.sql 2>/dev/null | sort); do
-            echo 'Running script:' $sql
+    if [ -d /root/setup ]; then
+        echo 'Found /root/setup - scanning for SQL scripts'
+        for sql in $(ls /root/setup/*.sql 2>/dev/null | sort); do
+            echo 'Found script - running:' $sql
             mysql -uroot -proot -e "\. $sql"
             mv $sql $sql.processed
         done
