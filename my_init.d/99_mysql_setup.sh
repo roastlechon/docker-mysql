@@ -21,8 +21,8 @@ if [ ! -d /var/lib/mysql/mysql ]; then
     echo 'Setting root password to root'
     /usr/bin/mysqladmin -u root password 'root'
 
-    mysql -uroot -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '$MYSQL_PASS'"
-    mysql -uroot -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}'@'%' WITH GRANT OPTION"
+    mysql -uroot -proot -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '$MYSQL_PASS'"
+    mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}'@'%' WITH GRANT OPTION"
 
     if [ -d /root/setup ]; then
         echo 'Found /root/setup - scanning for SQL scripts'
