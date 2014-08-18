@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 if [ ! -d /var/lib/mysql/mysql ]; then
-    touch ~/test1
+
     echo '*** Rebuilding mysql data dir'
         
     chown -R mysql.mysql /var/lib/mysql
@@ -21,8 +21,8 @@ if [ ! -d /var/lib/mysql/mysql ]; then
     echo '*** Setting root password to root'
     /usr/bin/mysqladmin -u root password 'root'
 
-    echo '*** Creating mysql user: ${MYSQL_USER}'
-    mysql -uroot -proot -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '$MYSQL_PASS'"
+    echo '*** Creating mysql user: $MYSQL_USER with pass: $MYSQL_PASS'
+    mysql -uroot -proot -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASS}'"
     mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}'@'%' WITH GRANT OPTION"
 
     echo '*** Bootstrapping database with scripts found in /root/setup'
@@ -37,5 +37,9 @@ if [ ! -d /var/lib/mysql/mysql ]; then
 
     echo '*** Shutting down mysqld'
     mysqladmin -uroot -proot shutdown
+
+else
+
+    echo '*** Using existing mysql data dir'
 
 fi
