@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.9
+FROM phusion/baseimage:0.9.12
 
 ENV HOME /root
 
@@ -9,6 +9,7 @@ CMD ["/sbin/my_init"]
 # Some Environment Variables
 ENV DEBIAN_FRONTEND noninteractive
 
+# MySQL database variables
 ENV MYSQL_USER admin
 ENV MYSQL_PASS password
 
@@ -29,6 +30,7 @@ RUN rm -rf /var/lib/mysql/*
 # Configure and add my.cnf
 ADD build/my.cnf /etc/mysql/my.cnf
 
+# Add runit mysql service
 RUN mkdir /etc/service/mysql
 ADD runit/mysql.sh /etc/service/mysql/run
 RUN chmod +x /etc/service/mysql/run
