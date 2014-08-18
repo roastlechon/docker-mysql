@@ -9,6 +9,9 @@ CMD ["/sbin/my_init"]
 # Some Environment Variables
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV MYSQL_USER admin
+ENV MYSQL_PASS password
+
 ## Update
 RUN apt-get update
 
