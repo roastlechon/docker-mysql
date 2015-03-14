@@ -10,7 +10,7 @@ cd /path/to/repo/docker-mysql
 sudo docker build -t mysql .
 
 # Run the docker container
-sudo docker run --name mysql -v /mysqldata:/var/lib/mysql -e MYSQL_USER=admin -e MYSQL_PASSWORD=password -d mysql /sbin/my_init --enable-insecure-key
+sudo docker run --name mysql -v /mysqldata:/var/lib/mysql -e MYSQL_USER=admin -e MYSQL_PASS=password -d mysql /sbin/my_init --enable-insecure-key
 ```
 
 * `docker run` - Creates and runs a new Docker container based off an image.
@@ -39,7 +39,7 @@ CONTAINER ID        IMAGE                    COMMAND                CREATED     
 When you have your Data Volume Container created, you can use it with your mysql container:
 
 ```bash
-sudo docker run --name mysql --volumes-from mysql_data -e MYSQL_USER=admin -e MYSQL_PASSWORD=password -d mysql /sbin/my_init --enable-insecure-key
+sudo docker run --name mysql --volumes-from mysql_data -e MYSQL_USER=admin -e MYSQL_PASS=password -d mysql /sbin/my_init --enable-insecure-key
 ```
 
 ## Bootstrap MySQL scripts
