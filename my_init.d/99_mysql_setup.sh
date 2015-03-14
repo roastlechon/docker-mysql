@@ -22,7 +22,9 @@ if [ ! -d /var/lib/mysql/mysql ]; then
     /usr/bin/mysqladmin -u root password 'root'
 
     echo "*** Creating mysql user: $MYSQL_USER with pass: $MYSQL_PASS"
-    mysql -uroot -proot -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASS}'"
+    mysql -uroot -proot -e "CREATE USER '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}';"
+    mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}'@'localhost' IDENTIFIED BY '${MYSQL_PASS}'; FLUSH PRIVILEGES;"
+    mysql -uroot -proot -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASS}';"
     mysql -uroot -proot -e "GRANT ALL PRIVILEGES ON *.* TO '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASS}'; FLUSH PRIVILEGES;"
 
     echo '*** Bootstrapping database with scripts found in /root/setup'
